@@ -28,10 +28,16 @@ function processFirstItem(stringList, callback) {
  * 
  * 1. What is the difference between counter1 and counter2?
  * 
+ * counter1 is a variable which exists outside of a function. The counterMaker function is assigned to counter1. This enables the inner variable of count and the function of counter to be accessed outside of the function. counter2 is a function but is not assigned to a variable. Also, the count variable for counter2 exists outside of the function itself.
+ * 
  * 2. Which of the two uses a closure? How can you tell?
+ * 
+ * counter1 uses a closure because the function 'counter' only exists within the function 'counterMaker'. The only way to access the 'counter' function would be to call the 'counterMaker' function, or to assign the 'counterMaker' function to a variable (like counter1).
  * 
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
  *
+ * The use of counter1 would be best if we wanted to keep information secure and harder to access, such as with salary or personal information. 
+ * 
 */
 
 // counter1 code
@@ -56,11 +62,11 @@ function counter2() {
 
 Write a function called `inning` that generates a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
+function inning(){
+  return Math.floor(Math.random() * Math.floor(3));
+};
 
-    /*Code Here*/
-
-}
+console.log(inning())
 
 /* Task 3: finalScore()
 
@@ -76,11 +82,15 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(/*code Here*/){
-
-  /*Code Here*/
-
+function finalScore(inningFunction, numberOfInnings){
+  let finalScore1 = 0;
+  for (let i = 0; i < numberOfInnings; i++){
+    finalScore1 += inningFunction();
+  }
+  return finalScore1;
 }
+
+console.log(finalScore(inning, 9));
 
 /* Task 4: 
 
@@ -90,7 +100,7 @@ Create a function called `scoreboard` that accepts the following parameters:
 (2) Callback function `inning`
 (2) A number of innings
 
-and returns the score at each pont in the game, like so:
+and returns the score at each point in the game, like so:
 
 1st inning: awayTeam - homeTeam
 2nd inning: awayTeam - homeTeam
@@ -104,8 +114,21 @@ and returns the score at each pont in the game, like so:
 
 Final Score: awayTeam - homeTeam */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function getInningScore (){
+  inningNumber = new Object();
+  
 }
 
+function scoreboard(getInningScore, inning, numInnings) {
+  let score = 0;
+  scoreboard2 = [];
+  return function (){
+    for (let i = 0; i < numInnings; i++){
+      score += inning(numInnings);
+    }
+  }
+}
 
+console.log(getInningScore, inning, 9);
+
+/* The code for this task needs more work */
