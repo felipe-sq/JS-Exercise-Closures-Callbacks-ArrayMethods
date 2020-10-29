@@ -66,7 +66,7 @@ function inning(){
   return Math.floor(Math.random() * Math.floor(3));
 };
 
-console.log(inning())
+console.log(inning());
 
 /* Task 3: finalScore()
 
@@ -114,21 +114,36 @@ and returns the score at each point in the game, like so:
 
 Final Score: awayTeam - homeTeam */
 
-function getInningScore (){
-  inningNumber = new Object();
-  
-}
 
-function scoreboard(getInningScore, inning, numInnings) {
-  let score = 0;
-  scoreboard2 = [];
-  return function (){
-    for (let i = 0; i < numInnings; i++){
-      score += inning(numInnings);
-    }
+
+function scoreboard(callback, numInnings) {
+  let currentInningScore = 1;
+  const listOfScores = new Array(numInnings + 1).fill({Home: 0, Away: 0});
+  return () => {
+    if (currentInningScore > numInnings)
+      return `Final Score: Away: ${listOfScores[numInnings].Away} - Home: ${listOfScores[numInnings].Home}`;
+      const Away = callback() + listOfScores[currentInningScore-1].Away;
+      const Home = callback() + listOfScores[currentInningScore-1].Home;
+    listOfScores[currentInningScore] = {Home, Away};
+    let end = 'st';
+    if (currentInningScore === 2) end = 'nd';
+    else if (currentInningScore === 3) end = 'rd';
+    else if (currentInningScore > 3) end = 'th';
+    return `${currentInningScore++ + end} inning: Away ${Away} - Home: ${Home}`;
   }
 }
 
-console.log(getInningScore, inning, 9);
+const scoreboardPrint = scoreboard(inning, 9);
+console.log(scoreboardPrint());
+console.log(scoreboardPrint());
+console.log(scoreboardPrint());
+console.log(scoreboardPrint());
+console.log(scoreboardPrint());
+console.log(scoreboardPrint());
+console.log(scoreboardPrint());
+console.log(scoreboardPrint());
+console.log(scoreboardPrint());
+console.log(scoreboardPrint());
 
-/* The code for this task needs more work */
+// Used multiple instances of console.log instead of creating a function in order to better visualize how the code is producing results/outcomes.
+// Solved through pair programming with other students
